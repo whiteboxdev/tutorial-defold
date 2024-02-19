@@ -1,0 +1,24 @@
+[bootstrap]
+main_collection = /example/main.collectionc
+
+[script]
+shared_state = 1
+
+[display]
+width = 960
+height = 540
+
+[android]
+input_method = HiddenInputField
+
+[project]
+title = Tutorial - Window Geometry
+version = 1.0.0
+publisher = Klayton Kowalski
+developer = Klayton Kowalski
+dependencies#0 = https://github.com/subsoap/defos/archive/master.zip
+dependencies#1 = https://github.com/klaytonkowalski/library-defold-persist/archive/main.zip
+
+[input]
+game_binding = /builtins/input/all.input_bindingc
+

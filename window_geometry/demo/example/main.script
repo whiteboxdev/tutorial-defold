@@ -1,0 +1,108 @@
+--------------------------------------------------------------------------------
+-- License
+--------------------------------------------------------------------------------
+
+-- Copyright (c) 2024 Klayton Kowalski
+
+-- This software is provided 'as-is', without any express or implied warranty.
+-- In no event will the authors be held liable for any damages arising from the use of this software.
+
+-- Permission is granted to anyone to use this software for any purpose,
+-- including commercial applications, and to alter it and redistribute it freely,
+-- subject to the following restrictions:
+
+-- 1. The origin of this software must not be misrepresented; you must not claim that you wrote the original software.
+--    If you use this software in a product, an acknowledgment in the product documentation would be appreciated but is not required.
+
+-- 2. Altered source versions must be plainly marked as such, and must not be misrepresented as being the original software.
+
+-- 3. This notice may not be removed or altered from any source distribution.
+
+--------------------------------------------------------------------------------
+-- Information
+--------------------------------------------------------------------------------
+
+-- GitHub: https://github.com/klaytonkowalski/tutorial-defold
+
+--------------------------------------------------------------------------------
+-- Dependencies
+--------------------------------------------------------------------------------
+
+local persist = require "persist.persist"
+
+--------------------------------------------------------------------------------
+-- Constants
+--------------------------------------------------------------------------------
+
+local message_acquire_input_focus = hash("acquire_input_focus")
+
+local key_f11 = hash("key_f11")
+local key_esc = hash("key_esc")
+
+--------------------------------------------------------------------------------
+-- Local Functions
+--------------------------------------------------------------------------------
+
+-- Creates a settings file that contains default window geometry data.
+-- If the file already exists, then this function does nothing.
+local function create_settings()
+	local window_x, window_y, window_width, window_height = defos.get_window_size()
+	local default_settings =
+	{
+		fullscreen = sys.get_config_string("display.fullscreen", "0") == "1" and true or false,
+		maximized = false,
+		window_x = window_x,
+		window_y = window_y,
+		window_width = window_width,
+		window_height = window_height
+	}
+	persist.create("settings", default_settings)
+end
+
+-- Loads window geometry data from the settings file.
+local function load_settings()
+	local settings = persist.load("settings")
+	if settings.fullscreen then
+		defos.set_fullscreen(true)
+	elseif settings.maximized then
+		defos.set_maximized(true)
+	else
+		defos.set_window_size(settings.window_x, settings.window_y, settings.window_width, settings.window_height)
+	end
+end
+
+-- Saves window geometry data to the settings file.
+local function save_settings()
+	persist.write("settings", "fullscreen", defos.is_fullscreen())
+	persist.write("settings", "maximized", defos.is_maximized())
+	local window_x, window_y, window_width, window_height = defos.get_window_size()
+	persist.write("settings", "window_x", window_x)
+	persist.write("settings", "window_y", window_y)
+	persist.write("settings", "window_width", window_width)
+	persist.write("settings", "window_height", window_height)
+	persist.save("settings")
+end
+
+--------------------------------------------------------------------------------
+-- Engine Functions
+--------------------------------------------------------------------------------
+
+function init()
+	msg.post(msg.url(), message_acquire_input_focus)
+	create_settings()
+	load_settings()
+end
+
+function final()
+	save_settings()
+end
+
+function on_input(_, action_id, action)
+	if action.pressed then
+		if action_id == key_f11 then
+			defos.toggle_fullscreen()
+		elseif action_id == key_esc then
+			sys.exit(0)
+		end
+	end
+end

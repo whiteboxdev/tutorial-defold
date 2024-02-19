@@ -19,7 +19,7 @@ When a player first launches a game, the window geometry is set to whatever the 
 
 This tutorial uses the following libraries, however alternatives may be available if you would like to use them instead:
 
-* [Defold Persist](https://github.com/klaytonkowalski/defold-persist), which will help us save and load window geometry data.
+* [Defold Persist](https://github.com/klaytonkowalski/library-defold-persist), which will help us save and load window geometry data.
 * [DefOS](https://github.com/subsoap/defos), which will allow us access to OS-specific functions that the standard Defold API does not provide.
 
 Only library features that are directly relevant to this tutorial will be explained.
