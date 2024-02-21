@@ -8,18 +8,18 @@ Please click the ☆ button on GitHub if this repository is useful or interestin
 
 One of the first actions a player takes upon launching a game for the first time is toggle fullscreen, maximize, or resize the window to fit well on whatever screen dimensions they're using. These size-related properties are collectively known as **window geometry**.
 
-Imagine if every time you launched your favorite game, it popped up in the top-left corner of the screen as a tiny 320 x 180 window. That would be annoying and might give you a reason not to play the game in the future, or even leave a negative review! We want to provide a fun experience to players as much as possible, so we should learn how to properly save, load, and apply window geometry data.
+Imagine if every time you launched your favorite game, it popped up in the top-left corner of the screen as a tiny 320 x 180 window. That would be annoying and might give you a reason not to play the game in the future, or even leave a negative review! We want to provide a fun experience to players as much as possible, so we should learn how to properly save, load, and apply window geometry.
 
 ## Libraries (2 of 5)
 
 This tutorial uses the following libraries, however alternatives may be available:
 
-* [Defold Persist](https://github.com/klaytonkowalski/library-defold-persist), which will help us save and load window geometry data.
+* [Defold Persist](https://github.com/klaytonkowalski/library-defold-persist), which will help us save and load window geometry.
 * [DefOS](https://github.com/subsoap/defos), which will allow us access to OS-specific functions that the standard Defold API does not provide.
 
 Only library features that are directly relevant to this tutorial will be explained.
 
-## Loading Window Geometry (3 of 5)
+## Loading Geometry (3 of 5)
 
 The following terms are important to understand when thinking about window geometry:
 
@@ -43,10 +43,10 @@ function init()
 end
 ```
 
-First we create a *settings* file that contains default window geometry data:
+First we create a *settings* file that contains default window geometry:
 
 ```
--- Creates a settings file that contains default window geometry data.
+-- Creates a settings file that contains default window geometry.
 -- If the file already exists, then this function does nothing.
 local function create_settings()
     local window_x, window_y, window_width, window_height = defos.get_window_size()
@@ -65,10 +65,10 @@ end
 
 We don't want to write an inaccurate value to the *settings* file, so we need to ping every value that might have a different value than we expect. Fullscreen mode is unpredictable because it can be toggled by the developer in the *game.project* file. Window position is unpredictable because it is sometimes up to the OS where a window is spawned on the screen. Window size is unpredictable because we don't know what kind of window decorations the OS might attach.
 
-Next we load whatever window geometry data is stored in the *settings* file:
+Next we load whatever window geometry is stored in the *settings* file:
 
 ```
--- Loads window geometry data from the settings file.
+-- Loads window geometry from the settings file.
 local function load_settings()
     local settings = persist.load("settings")
     if settings.fullscreen then
@@ -83,7 +83,7 @@ end
 
 The order of precedence is important here. For example, if the window should be in fullscreen mode, then maximized mode and windowed mode should not be applied, otherwise the window might flicker around the screen a few times or adopt incorrect geometry.
 
-## Saving Window Geometry (4 of 5)
+## Saving Geometry (4 of 5)
 
 Window geometry doesn't have to be saved as soon as the window is resized, since the window state is not lost until the application is terminated. This kind of on-demand saving would also be more difficult to manage because the relevant code might be needed in several different files. Instead, we should only save window geometry in the top-level `final()` function:
 
@@ -96,7 +96,7 @@ end
 We then write the fullscreen mode, maximized state, window position, and window dimensions to the *settings* file and save the changes.
 
 ```
--- Saves window geometry data to the settings file.
+-- Saves window geometry to the settings file.
 local function save_settings()
     persist.write("settings", "fullscreen", defos.is_fullscreen())
     persist.write("settings", "maximized", defos.is_maximized())
@@ -115,9 +115,9 @@ Now whenever the player launches the game, the window immediately re-shapes itse
 
 This tutorial includes a demo project. Since this demo includes libraries, remember to select the Fetch Libraries menu item in the Defold editor before launching.
 
-All of the relevant code is located in the *demo/example/main.script* file. Moving and resizing the window changes window geometry. On application shutdown, window geometry data is saved to disk. On application startup, window geometry data is loaded and applied.
+All of the relevant code is located in the *demo/example/main.script* file. On application shutdown, window geometry is saved to disk. On application startup, window geometry is loaded and applied.
 
 The following controls are available:
 
 * `key_f11` toggles fullscreen mode.
-* `key_esc` terminates the application. Use this to save window geometry data while in fullscreen mode.
+* `key_esc` terminates the application. Use this to save window geometry while in fullscreen mode.
