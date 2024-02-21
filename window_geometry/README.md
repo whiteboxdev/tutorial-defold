@@ -1,6 +1,6 @@
 # Tutorial: Window Geometry
 
-This tutorial explains how to save, load, and apply window geometry data.
+This tutorial explains how to save, load, and apply window geometry.
 
 Please click the ☆ button on GitHub if this repository is useful or interesting. Thank you!
 
@@ -34,7 +34,7 @@ The following terms are important to understand when thinking about window geome
 
 It is impossible to know what the player's window size will be because every OS attaches its own default **window decorations**, which include everything outside the viewport, such as the title bar, border, menu items, etc. The Width and Height components in the Display section of the *game.project* file only specify the viewport dimensions, which do not include window decorations. Because of this, the view width and view height properties do not need to be saved. They can be pinged by calling the standard `sys.get_config_int()` function or some other function if you're using a custom camera library.
 
-Window geometry data needs to be loaded on application startup, which translates the the top-level `init()` function:
+Window geometry needs to be loaded on application startup, which translates the the top-level `init()` function:
 
 ```
 function init()
