@@ -14,4 +14,4 @@ Some tutorials include demos in the form of functional Defold game engine projec
 
 | Tutorial | Category | Description | Includes Demo |
 | -------- | -------- | ----------- | :-------------: |
-| [Window Geometry](https://github.com/klaytonkowalski/tutorial-defold/tree/main/window_geometry) | Quality of Life | How to save, load, and apply window geometry data. | ✅ |
+| [Window Geometry](https://github.com/whiteboxdev/tutorial-defold/tree/main/window_geometry) | Quality of Life | How to save, load, and apply window geometry data. | ✅ |

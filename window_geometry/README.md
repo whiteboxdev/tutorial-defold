@@ -14,7 +14,7 @@ Imagine if every time you launched your favorite game, it popped up in the top-l
 
 This tutorial uses the following libraries, however alternatives may be available:
 
-* [Defold Persist](https://github.com/klaytonkowalski/library-defold-persist), which will help us save and load window geometry.
+* [Defold Persist](https://github.com/whiteboxdev/library-defold-persist), which will help us save and load window geometry.
 * [DefOS](https://github.com/subsoap/defos), which will allow us access to OS-specific functions that the standard Defold API does not provide.
 
 Only library features that are directly relevant to this tutorial will be explained.
@@ -30,7 +30,7 @@ The following terms are important to understand when thinking about window geome
 * **View Width** is the amount of pixels from the left side of the viewport to the right side of the viewport.
 * **View Height** is the amount of pixels from the top side of the viewport to the bottom side of the viewport.
 
-![geometry.png](https://github.com/klaytonkowalski/tutorial-defold/blob/main/window_geometry/assets/images/geometry.png)
+![geometry.png](https://github.com/whiteboxdev/tutorial-defold/blob/main/window_geometry/assets/images/geometry.png)
 
 It is impossible to know what the player's window size will be because every OS attaches its own default **window decorations**, which include everything outside the viewport, such as the title bar, border, menu items, etc. The Width and Height components in the Display section of the *game.project* file only specify the viewport dimensions, which do not include window decorations. Because of this, the view width and view height properties do not need to be saved. They can be pinged by calling the standard `sys.get_config_int()` function or some other function if you're using a custom camera library.
 
